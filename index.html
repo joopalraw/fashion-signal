@@ -3,287 +3,461 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FASHION SIGNAL — 패션 트렌드 브리핑</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>FASHION SIGNAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
-  --black: #0e0e0e;
-  --white: #f5f3ef;
-  --accent: #c8a96e;
-  --muted: #7a7670;
-  --surface: #1a1916;
-  --border: rgba(200,169,110,0.18);
-  --card-bg: #141412;
+  --ink: #111009;
+  --paper: #f4f1eb;
+  --gold: #b8965a;
+  --gold-light: #d4b07a;
+  --dust: #8a8278;
+  --rule: rgba(184,150,90,0.2);
+  --card: #faf8f4;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Geist', system-ui, sans-serif;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
 
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─────────────────────────────── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 48px;
-  border-bottom: 0.5px solid var(--border);
-  background: rgba(14,14,14,0.88);
-  backdrop-filter: blur(12px);
+  padding: 0 48px; height: 56px;
+  background: rgba(244,241,235,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid var(--rule);
 }
-.logo { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: 0.08em; color: var(--accent); }
-.nav-right { display: flex; gap: 32px; align-items: center; }
-.nav-link { font-size: 13px; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.nav-link:hover { color: var(--white); }
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 400; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--ink);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 36px; align-items: center; }
+.nav-links a {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--dust); text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 7px 18px; border: 0.5px solid var(--gold);
+  color: var(--gold) !important; transition: all .2s !important;
+}
+.nav-cta:hover { background: var(--gold) !important; color: var(--paper) !important; }
 
+/* ─── HERO ────────────────────────────── */
 .hero {
-  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 0 48px 72px; position: relative; overflow: hidden;
+  min-height: 100svh;
+  display: grid; grid-template-rows: 1fr auto;
+  padding: 56px 0 0;
+  position: relative; overflow: hidden;
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(200,169,110,0.07) 0%, transparent 70%), linear-gradient(180deg, rgba(14,14,14,0) 40%, rgba(14,14,14,1) 100%);
-  pointer-events: none;
+.hero-inner {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 80px 48px 64px;
 }
-.hero-tag { font-size: 11px; letter-spacing: 0.16em; color: var(--accent); text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
-.hero-tag::before { content: ''; display: inline-block; width: 24px; height: 0.5px; background: var(--accent); }
-.hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(52px, 8vw, 108px); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 32px; max-width: 800px; }
-.hero-title em { font-style: italic; color: var(--accent); }
-.hero-desc { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 48px; }
-.btn-primary { font-size: 13px; letter-spacing: 0.06em; padding: 14px 32px; background: var(--accent); color: var(--black); text-decoration: none; border-radius: 2px; font-weight: 500; transition: opacity 0.2s; display: inline-block; }
-.btn-primary:hover { opacity: 0.85; }
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 28px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 32px; height: 0.5px; background: var(--gold);
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(64px, 9vw, 128px);
+  font-weight: 300; line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 36px;
+  max-width: 900px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 14px; color: var(--dust); line-height: 1.8;
+  max-width: 440px; margin-bottom: 48px;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 0.5px solid var(--ink); padding-bottom: 4px;
+  transition: color .2s, border-color .2s;
+}
+.hero-cta:hover { color: var(--gold); border-color: var(--gold); }
+.hero-cta::after { content: '→'; font-size: 14px; }
 
-.hero-ticker { position: absolute; bottom: 0; left: 0; right: 0; border-top: 0.5px solid var(--border); padding: 12px 48px; overflow: hidden; white-space: nowrap; }
-.ticker-inner { display: inline-block; animation: ticker 28s linear infinite; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
-@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* Ticker */
+.ticker-wrap {
+  border-top: 0.5px solid var(--rule);
+  overflow: hidden; white-space: nowrap;
+  padding: 13px 0; background: var(--paper);
+}
+.ticker-track {
+  display: inline-block;
+  animation: scroll 40s linear infinite;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--dust);
+}
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-.section { padding: 96px 48px; }
-.section-label { font-size: 11px; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 48px; display: flex; align-items: center; gap: 12px; }
-.section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+/* Decorative rule */
+.section-rule {
+  display: flex; align-items: center; gap: 16px;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 48px;
+}
+.section-rule::before, .section-rule::after {
+  content: ''; flex: 1; height: 0.5px; background: var(--rule);
+}
 
-.issue-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
-.issue-date { font-family: 'DM Serif Display', serif; font-size: 48px; color: var(--white); line-height: 1.1; white-space: pre-line; }
-.issue-info { text-align: right; }
-.issue-num { font-size: 11px; color: var(--accent); letter-spacing: 0.1em; }
-.issue-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+/* ─── BRIEFING ────────────────────────── */
+.briefing { padding: 96px 48px; }
 
-.filter-bar { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
-.filter-btn { font-size: 11px; letter-spacing: 0.08em; padding: 6px 16px; border: 0.5px solid var(--border); color: var(--muted); background: transparent; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
-.filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: var(--accent); }
+.meta-row {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 48px; padding-bottom: 24px;
+  border-bottom: 0.5px solid var(--rule);
+  flex-wrap: wrap; gap: 16px;
+}
+.meta-date {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 300; line-height: 1; color: var(--ink);
+}
+.meta-right { text-align: right; }
+.meta-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.meta-sub { font-size: 12px; color: var(--dust); margin-top: 4px; }
 
-.cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 0.5px solid var(--border); margin-bottom: 1px; }
-.trend-card { background: var(--card-bg); padding: 28px 24px; transition: background 0.2s; min-height: 240px; display: flex; flex-direction: column; justify-content: space-between; }
-.trend-card:hover { background: var(--surface); }
-.trend-cat { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
-.trend-title { font-family: 'DM Serif Display', serif; font-size: 18px; line-height: 1.3; color: var(--white); margin-bottom: 12px; }
-.trend-body { font-size: 12px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 16px; }
-.trend-footer { display: flex; justify-content: space-between; align-items: center; }
-.trend-date { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
-.trend-link { font-size: 11px; color: var(--accent); text-decoration: none; }
-.trend-link:hover { text-decoration: underline; }
+/* Filters */
+.filters { display: flex; gap: 6px; margin-bottom: 36px; flex-wrap: wrap; }
+.filter-pill {
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 14px; border: 0.5px solid var(--rule);
+  color: var(--dust); background: transparent; cursor: pointer;
+  border-radius: 0; transition: all .15s; font-family: var(--sans);
+}
+.filter-pill:hover { border-color: var(--gold); color: var(--gold); }
+.filter-pill.on { border-color: var(--ink); color: var(--ink); background: var(--ink); color: var(--paper); }
 
-.loading-state { text-align: center; padding: 80px 48px; color: var(--muted); font-size: 14px; }
-.loading-dot { display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin: 0 3px; animation: pulse 1.4s ease-in-out infinite; }
-.loading-dot:nth-child(2) { animation-delay: 0.2s; }
-.loading-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes pulse { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+/* Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 0.5px solid var(--rule);
+}
+.card {
+  padding: 32px 28px; border-right: 0.5px solid var(--rule);
+  border-bottom: 0.5px solid var(--rule);
+  background: var(--card); transition: background .2s;
+  display: flex; flex-direction: column; gap: 0;
+  cursor: default; min-height: 280px;
+}
+.card:hover { background: #fff; }
+.card:nth-child(3n) { border-right: none; }
+.card-cat {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.card-title {
+  font-family: var(--serif); font-size: 20px;
+  font-weight: 400; line-height: 1.25; color: var(--ink);
+  margin-bottom: 14px; flex: 1;
+}
+.card-body {
+  font-size: 12px; color: var(--dust); line-height: 1.7;
+  margin-bottom: 20px;
+}
+.card-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 16px; border-top: 0.5px solid var(--rule);
+}
+.card-source { font-size: 10px; color: var(--dust); letter-spacing: 0.06em; }
+.card-link {
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none; transition: opacity .2s;
+}
+.card-link:hover { opacity: 0.7; }
 
-.stats-bar { display: grid; grid-template-columns: repeat(4,1fr); border: 0.5px solid var(--border); background: var(--card-bg); margin-top: 1px; }
-.stat-cell { padding: 24px 28px; border-right: 0.5px solid var(--border); text-align: center; }
-.stat-cell:last-child { border-right: none; }
-.stat-n { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--accent); line-height: 1.1; }
-.stat-l { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; margin-top: 4px; }
+/* Loading */
+.loading {
+  grid-column: 1 / -1; padding: 80px; text-align: center;
+  color: var(--dust); font-size: 13px; letter-spacing: 0.06em;
+}
+.loading-dots span {
+  display: inline-block; width: 5px; height: 5px;
+  background: var(--gold); border-radius: 50%; margin: 0 3px;
+  animation: blink 1.4s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: .2s; }
+.loading-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
 
-.sources-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; margin-top: 32px; border-top: 0.5px solid var(--border); }
-.sources-txt { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
-.auto-pill { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 0.5px solid rgba(200,169,110,0.4); color: var(--accent); border-radius: 1px; }
+/* Stats */
+.stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border: 0.5px solid var(--rule); border-top: none;
+  background: var(--card); margin-bottom: 0;
+}
+.stat { padding: 24px 28px; border-right: 0.5px solid var(--rule); }
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-family: var(--serif); font-size: 40px;
+  font-weight: 300; color: var(--gold); line-height: 1;
+}
+.stat-l { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dust); margin-top: 6px; }
 
-.cta-section { padding: 96px 48px; text-align: center; border-top: 0.5px solid var(--border); }
-.cta-title { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5vw, 64px); line-height: 1.1; margin-bottom: 24px; }
-.cta-title em { font-style: italic; color: var(--accent); }
-.cta-sub { font-size: 15px; color: var(--muted); margin-bottom: 40px; }
-.cta-form { display: flex; max-width: 420px; margin: 0 auto; }
-.cta-input { flex: 1; padding: 14px 18px; background: var(--surface); border: 0.5px solid var(--border); border-right: none; color: var(--white); font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; border-radius: 2px 0 0 2px; }
-.cta-input::placeholder { color: var(--muted); }
-.cta-btn { padding: 14px 24px; background: var(--accent); border: none; color: var(--black); font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; border-radius: 0 2px 2px 0; transition: opacity 0.2s; }
+/* Source bar */
+.source-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0; border-top: 0.5px solid var(--rule); margin-top: 32px;
+}
+.source-bar span { font-size: 10px; letter-spacing: 0.08em; color: var(--dust); }
+.source-badge {
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 3px 10px; border: 0.5px solid var(--gold); color: var(--gold);
+}
+
+/* ─── CTA ─────────────────────────────── */
+.cta-section {
+  padding: 96px 48px; text-align: center;
+  border-top: 0.5px solid var(--rule);
+  background: var(--ink); color: var(--paper);
+}
+.cta-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 300; line-height: 1.05;
+  margin-bottom: 20px;
+}
+.cta-title em { font-style: italic; color: var(--gold-light); }
+.cta-sub { font-size: 13px; color: rgba(244,241,235,0.5); margin-bottom: 40px; letter-spacing: 0.04em; }
+.cta-form { display: flex; max-width: 400px; margin: 0 auto 16px; }
+.cta-input {
+  flex: 1; padding: 13px 18px; background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(244,241,235,0.2); border-right: none;
+  color: var(--paper); font-size: 13px; font-family: var(--sans);
+  outline: none; letter-spacing: 0.02em;
+}
+.cta-input::placeholder { color: rgba(244,241,235,0.3); }
+.cta-btn {
+  padding: 13px 24px; background: var(--gold); border: none;
+  color: var(--ink); font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: var(--sans);
+  cursor: pointer; font-weight: 500; transition: opacity .2s;
+}
 .cta-btn:hover { opacity: 0.85; }
-.cta-note { font-size: 11px; color: var(--muted); margin-top: 14px; }
+.cta-note { font-size: 10px; color: rgba(244,241,235,0.3); letter-spacing: 0.06em; }
 
-footer { padding: 32px 48px; border-top: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-.footer-logo { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--accent); letter-spacing: 0.06em; }
-.footer-copy { font-size: 12px; color: var(--muted); }
+/* ─── FOOTER ──────────────────────────── */
+footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 48px; border-top: 0.5px solid rgba(244,241,235,0.1);
+  background: var(--ink); flex-wrap: wrap; gap: 12px;
+}
+.footer-logo {
+  font-family: var(--serif); font-size: 14px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+}
+footer p { font-size: 10px; letter-spacing: 0.06em; color: rgba(244,241,235,0.3); }
 
-.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-
-@media (max-width: 900px) {
-  nav { padding: 16px 24px; }
-  .hero { padding: 0 24px 100px; }
-  .section { padding: 64px 24px; }
-  .cards-grid { grid-template-columns: repeat(2,1fr); }
-  .stats-bar { grid-template-columns: repeat(2,1fr); }
+/* ─── RESPONSIVE ──────────────────────── */
+@media (max-width: 960px) {
+  nav { padding: 0 24px; }
+  .hero-inner { padding: 60px 24px 48px; }
+  .briefing { padding: 64px 24px; }
+  .grid { grid-template-columns: repeat(2,1fr); }
+  .card:nth-child(3n) { border-right: 0.5px solid var(--rule); }
+  .card:nth-child(2n) { border-right: none; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(3) { border-top: 0.5px solid var(--rule); }
   .cta-section { padding: 64px 24px; }
-  footer { padding: 24px; }
-  .cta-form { flex-direction: column; }
-  .cta-input { border-right: 0.5px solid var(--border); border-bottom: none; border-radius: 2px 2px 0 0; }
-  .cta-btn { border-radius: 0 0 2px 2px; }
+  footer { padding: 20px 24px; }
 }
 @media (max-width: 600px) {
-  .cards-grid { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+  .card { border-right: none; }
+  .stats { grid-template-columns: repeat(2,1fr); }
 }
+
+/* ─── FADE IN ─────────────────────────── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">FASHION SIGNAL</div>
-  <div class="nav-right">
-    <a href="#briefing" class="nav-link">브리핑</a>
-    <a href="#subscribe" class="nav-link">구독</a>
+  <a href="#" class="nav-logo">Fashion Signal</a>
+  <div class="nav-links">
+    <a href="#briefing">브리핑</a>
+    <a href="#subscribe" class="nav-cta">구독</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-tag">AI 패션 트렌드 브리핑</div>
-  <h1 class="hero-title">패션의 <em>신호</em>를<br>먼저 읽는다</h1>
-  <p class="hero-desc">글로벌 런웨이·국내 패션 미디어·소재 트렌드·SNS 바이럴을 AI가 매주 자동 수집·분석해 바이어와 팀에게 핵심만 전달합니다.</p>
-  <div><a href="#briefing" class="btn-primary">이번 주 브리핑 보기</a></div>
-  <div class="hero-ticker">
-    <span class="ticker-inner">
-      2026 S/S &nbsp;·&nbsp; 컬러 해방 &nbsp;·&nbsp; 저지 소재 &nbsp;·&nbsp; 볼륨 실루엣 &nbsp;·&nbsp; 디자이너 빅뱅 &nbsp;·&nbsp; Transformative Teal &nbsp;·&nbsp; 화이트 진 &nbsp;·&nbsp; 프린지 스커트 &nbsp;·&nbsp; Loewe &nbsp;·&nbsp; Chanel &nbsp;·&nbsp; Dior &nbsp;·&nbsp;
-      2026 S/S &nbsp;·&nbsp; 컬러 해방 &nbsp;·&nbsp; 저지 소재 &nbsp;·&nbsp; 볼륨 실루엣 &nbsp;·&nbsp; 디자이너 빅뱅 &nbsp;·&nbsp; Transformative Teal &nbsp;·&nbsp; 화이트 진 &nbsp;·&nbsp; 프린지 스커트 &nbsp;·&nbsp; Loewe &nbsp;·&nbsp; Chanel &nbsp;·&nbsp; Dior &nbsp;·&nbsp;
-    </span>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI 패션 트렌드 브리핑</div>
+    <h1 class="hero-title">패션의<br><em>신호</em>를<br>먼저 읽는다</h1>
+    <p class="hero-sub">글로벌 런웨이·국내 패션 미디어·소재 트렌드를 AI가 매주 자동 수집·분석해 바이어와 팀에게 핵심만 전달합니다.</p>
+    <a href="#briefing" class="hero-cta">이번 주 브리핑 보기</a>
+  </div>
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      2026 S/S &emsp;·&emsp; 컬러 해방 &emsp;·&emsp; 저지 소재 &emsp;·&emsp; 볼륨 실루엣 &emsp;·&emsp; 디자이너 빅뱅 &emsp;·&emsp; Transformative Teal &emsp;·&emsp; 화이트 진 &emsp;·&emsp; 프린지 스커트 &emsp;·&emsp; Loewe &emsp;·&emsp; Chanel &emsp;·&emsp; Dior &emsp;·&emsp; Balenciaga &emsp;·&emsp; Première Vision &emsp;·&emsp;
+      2026 S/S &emsp;·&emsp; 컬러 해방 &emsp;·&emsp; 저지 소재 &emsp;·&emsp; 볼륨 실루엣 &emsp;·&emsp; 디자이너 빅뱅 &emsp;·&emsp; Transformative Teal &emsp;·&emsp; 화이트 진 &emsp;·&emsp; 프린지 스커트 &emsp;·&emsp; Loewe &emsp;·&emsp; Chanel &emsp;·&emsp; Dior &emsp;·&emsp; Balenciaga &emsp;·&emsp; Première Vision &emsp;·&emsp;
+    </div>
   </div>
 </section>
 
-<section class="section" id="briefing">
-  <div class="section-label">최신 브리핑</div>
-  <div class="issue-meta">
-    <div class="issue-date" id="current-date">loading...</div>
-    <div class="issue-info">
-      <div class="issue-num">AI 자동 수집</div>
-      <div class="issue-sub">매주 자동 업데이트</div>
+<!-- BRIEFING -->
+<section class="briefing reveal" id="briefing">
+  <div class="section-rule">최신 브리핑</div>
+
+  <div class="meta-row">
+    <div class="meta-date" id="js-date">2026. 03</div>
+    <div class="meta-right">
+      <div class="meta-label">AI 자동 수집</div>
+      <div class="meta-sub">매주 자동 업데이트</div>
     </div>
   </div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterCards('all', this)">전체</button>
-    <button class="filter-btn" onclick="filterCards('글로벌트렌드', this)">글로벌트렌드</button>
-    <button class="filter-btn" onclick="filterCards('국내뉴스', this)">국내뉴스</button>
-    <button class="filter-btn" onclick="filterCards('소재원단', this)">소재원단</button>
-    <button class="filter-btn" onclick="filterCards('SNS바이럴', this)">SNS바이럴</button>
-    <button class="filter-btn" onclick="filterCards('데님트렌드', this)">데님트렌드</button>
+  <div class="filters">
+    <button class="filter-pill on" onclick="filter('all',this)">전체</button>
+    <button class="filter-pill" onclick="filter('글로벌트렌드',this)">글로벌트렌드</button>
+    <button class="filter-pill" onclick="filter('국내뉴스',this)">국내뉴스</button>
+    <button class="filter-pill" onclick="filter('소재원단',this)">소재원단</button>
+    <button class="filter-pill" onclick="filter('SNS바이럴',this)">SNS바이럴</button>
+    <button class="filter-pill" onclick="filter('데님트렌드',this)">데님트렌드</button>
   </div>
 
-  <div id="cards-container">
-    <div class="loading-state">
-      <span class="loading-dot"></span>
-      <span class="loading-dot"></span>
-      <span class="loading-dot"></span>
-      <p style="margin-top:16px;">최신 트렌드 불러오는 중...</p>
+  <div class="grid" id="grid">
+    <div class="loading">
+      <div class="loading-dots" style="margin-bottom:16px;"><span></span><span></span><span></span></div>
+      최신 트렌드를 불러오는 중입니다
     </div>
   </div>
 
-  <div class="stats-bar" id="stats-bar" style="display:none;">
-    <div class="stat-cell"><div class="stat-n" id="stat-total">0</div><div class="stat-l">수집 기사</div></div>
-    <div class="stat-cell"><div class="stat-n">5</div><div class="stat-l">수집 소스</div></div>
-    <div class="stat-cell"><div class="stat-n">5</div><div class="stat-l">카테고리</div></div>
-    <div class="stat-cell"><div class="stat-n">0분</div><div class="stat-l">수동 작업</div></div>
+  <div class="stats" id="stats" style="display:none;">
+    <div class="stat"><div class="stat-n" id="sn-total">—</div><div class="stat-l">수집 기사</div></div>
+    <div class="stat"><div class="stat-n">5</div><div class="stat-l">수집 소스</div></div>
+    <div class="stat"><div class="stat-n">5</div><div class="stat-l">카테고리</div></div>
+    <div class="stat"><div class="stat-n">0분</div><div class="stat-l">수동 작업</div></div>
   </div>
 
-  <div class="sources-bar">
-    <span class="sources-txt">출처 : Vogue Korea · W Korea · Harper's Bazaar · 패션비즈 · 어패럴뉴스</span>
-    <span class="auto-pill">AI 자동 생성</span>
+  <div class="source-bar">
+    <span>Vogue Korea · W Korea · Harper's Bazaar · 패션비즈 · 어패럴뉴스</span>
+    <span class="source-badge">AI 자동 생성</span>
   </div>
 </section>
 
-<section class="cta-section" id="subscribe">
+<!-- CTA -->
+<section class="cta-section reveal" id="subscribe">
   <h2 class="cta-title">매주 월요일,<br><em>트렌드를 먼저</em> 받아보세요</h2>
   <p class="cta-sub">팀·바이어 대상 전용 브리핑 구독 신청</p>
   <div class="cta-form">
-    <input class="cta-input" type="email" placeholder="이메일 주소 입력" id="email-input">
-    <button class="cta-btn" onclick="subscribe()">구독 신청</button>
+    <input class="cta-input" type="email" placeholder="이메일 주소" id="email">
+    <button class="cta-btn" onclick="sub()">구독</button>
   </div>
-  <p class="cta-note">스팸 없음 · 언제든 해지 가능 · 매주 월요일 발행</p>
+  <p class="cta-note">스팸 없음 &nbsp;·&nbsp; 언제든 해지 가능 &nbsp;·&nbsp; 매주 월요일</p>
 </section>
 
 <footer>
-  <div class="footer-logo">FASHION SIGNAL</div>
-  <div class="footer-copy">© 2026 · AI 자동 패션 트렌드 브리핑</div>
+  <div class="footer-logo">Fashion Signal</div>
+  <p>© 2026 · AI 자동 패션 트렌드 브리핑</p>
 </footer>
 
 <script>
-const AIRTABLE_TOKEN = 'patPrnrfTgSDs7A1C.43f72cce92199af458c05b188667a7f98c5e98240ef17133c4398b5a4b201235';
-const AIRTABLE_BASE_ID = 'appT6B0N71oCjNVXf';
-const AIRTABLE_TABLE = 'Table 1';
+const TOKEN = 'patPrnrfTgSDs7A1C.43f72cce92199af458c05b188667a7f98c5e98240ef17133c4398b5a4b201235';
+const BASE  = 'appT6B0N71oCjNVXf';
+const TABLE = 'Table%201';
 
-let allRecords = [];
+let all = [];
 
-async function loadFromAirtable() {
+async function load() {
   try {
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}?maxRecords=30&sort[0][field]=Published%20Date&sort[0][direction]=desc`;
-    const res = await fetch(url, {
-      headers: { 'Authorization': `Bearer ${AIRTABLE_TOKEN}` }
-    });
-    const data = await res.json();
-    allRecords = data.records || [];
-    renderCards(allRecords);
-    document.getElementById('stat-total').textContent = allRecords.length;
-    document.getElementById('stats-bar').style.display = 'grid';
-  } catch(e) {
-    document.getElementById('cards-container').innerHTML = `<div class="loading-state"><p style="color:var(--accent);">데이터를 불러올 수 없습니다. 잠시 후 다시 시도해주세요.</p></div>`;
+    const r = await fetch(
+      `https://api.airtable.com/v0/${BASE}/${TABLE}?maxRecords=30&sort[0][field]=Published%20Date&sort[0][direction]=desc`,
+      { headers: { Authorization: `Bearer ${TOKEN}` } }
+    );
+    const d = await r.json();
+    all = d.records || [];
+    render(all);
+    document.getElementById('sn-total').textContent = all.length;
+    document.getElementById('stats').style.display = 'grid';
+  } catch {
+    document.getElementById('grid').innerHTML =
+      '<div class="loading" style="color:var(--gold);">데이터를 불러올 수 없습니다. 잠시 후 다시 시도해주세요.</div>';
   }
 }
 
-function renderCards(records) {
-  if (!records.length) {
-    document.getElementById('cards-container').innerHTML = `<div class="loading-state"><p>아직 수집된 기사가 없습니다.</p></div>`;
+function render(recs) {
+  const g = document.getElementById('grid');
+  if (!recs.length) {
+    g.innerHTML = '<div class="loading">수집된 기사가 없습니다.</div>';
     return;
   }
-  const grid = document.createElement('div');
-  grid.className = 'cards-grid fade-in';
-  records.forEach(r => {
+  g.innerHTML = recs.map(r => {
     const f = r.fields;
-    const card = document.createElement('div');
-    card.className = 'trend-card';
-    card.dataset.category = f['Category'] || '';
-    const date = f['Published Date'] ? new Date(f['Published Date']).toLocaleDateString('ko-KR', {month:'short', day:'numeric'}) : '';
-    const summary = f['Summary'] ? f['Summary'].substring(0, 150) + '...' : '요약 준비 중...';
-    card.innerHTML = `
-      <div>
-        <div class="trend-cat">${f['Category'] || '미분류'}</div>
-        <div class="trend-title">${f['Title'] || '제목 없음'}</div>
-        <p class="trend-body">${summary}</p>
+    const d = f['Published Date']
+      ? new Date(f['Published Date']).toLocaleDateString('ko-KR',{month:'short',day:'numeric'})
+      : '';
+    const body = f['Summary']
+      ? f['Summary'].replace(/요약:/,'').replace(/카테고리:.*/s,'').trim().substring(0,140) + '…'
+      : '요약 준비 중';
+    return `
+    <div class="card">
+      <div class="card-cat">${f['Category'] || '미분류'}</div>
+      <div class="card-title">${f['Title'] || '제목 없음'}</div>
+      <p class="card-body">${body}</p>
+      <div class="card-foot">
+        <span class="card-source">${f['Source'] || ''} · ${d}</span>
+        ${f['URL'] ? `<a href="${f['URL']}" target="_blank" rel="noopener" class="card-link">원문 →</a>` : ''}
       </div>
-      <div class="trend-footer">
-        <span class="trend-date">${f['Source'] || ''} · ${date}</span>
-        ${f['URL'] ? `<a href="${f['URL']}" target="_blank" class="trend-link">원문 →</a>` : ''}
-      </div>`;
-    grid.appendChild(card);
-  });
-  document.getElementById('cards-container').innerHTML = '';
-  document.getElementById('cards-container').appendChild(grid);
-  setTimeout(() => grid.classList.add('visible'), 100);
+    </div>`;
+  }).join('');
 }
 
-function filterCards(category, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const filtered = category === 'all' ? allRecords : allRecords.filter(r => r.fields['Category'] === category);
-  renderCards(filtered);
+function filter(cat, btn) {
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  render(cat === 'all' ? all : all.filter(r => r.fields['Category'] === cat));
 }
 
-function subscribe() {
-  const email = document.getElementById('email-input').value;
-  if (email) { alert(`${email} 구독 신청 완료!\n매주 월요일 브리핑을 보내드릴게요.`); }
+function sub() {
+  const v = document.getElementById('email').value.trim();
+  if (v) alert(`${v}\n구독 신청이 완료됐습니다.\n매주 월요일 브리핑을 보내드릴게요.`);
 }
 
-const now = new Date();
-const weekNum = Math.ceil(now.getDate() / 7);
-document.getElementById('current-date').textContent = `${now.getFullYear()}.\n${String(now.getMonth()+1).padStart(2,'0')} WK${weekNum}`;
+// Date
+const n = new Date();
+document.getElementById('js-date').textContent =
+  `${n.getFullYear()}. ${String(n.getMonth()+1).padStart(2,'0')}`;
 
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+// Scroll reveal
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }});
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-loadFromAirtable();
+load();
 </script>
 </body>
 </html>
