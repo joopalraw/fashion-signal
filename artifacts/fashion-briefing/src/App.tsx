@@ -182,14 +182,14 @@ function Briefing() {
     async function load() {
       try {
         const res = await fetch(
-          `https://api.airtable.com/v0/${BASE}/Table%201?maxRecords=12&sort[0][field]=Published%20Date&sort[0][direction]=desc`,
+          `https://api.airtable.com/v0/${BASE}/Table%201?maxRecords=200&sort[0][field]=Published%20Date&sort[0][direction]=desc`,
           { headers: { Authorization: `Bearer ${TOKEN}` } }
         );
         const data = await res.json();
         if (data.error) throw new Error(data.error.message);
-        const records: AirtableRecord[] = (data.records || []).slice(0, 12);
+        const records: AirtableRecord[] = data.records || [];
         setAll(records);
-        setFiltered(records);
+        setFiltered(records.slice(0, 12));
       } catch (e: unknown) {
         setError(e instanceof Error ? e.message : "알 수 없는 오류");
       } finally {
@@ -202,9 +202,9 @@ function Briefing() {
   function doFilter(cat: string) {
     setActiveFilter(cat);
     if (cat === "전체") {
-      setFiltered(all);
+      setFiltered(all.slice(0, 12));
     } else {
-      setFiltered(all.filter((r) => r.fields.Category === cat));
+      setFiltered(all.filter((r) => r.fields.Category === cat).slice(0, 12));
     }
   }
 
