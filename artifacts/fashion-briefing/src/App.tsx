@@ -182,12 +182,12 @@ function Briefing() {
     async function load() {
       try {
         const res = await fetch(
-          `https://api.airtable.com/v0/${BASE}/Table%201?maxRecords=30&sort[0][field]=Published%20Date&sort[0][direction]=desc`,
+          `https://api.airtable.com/v0/${BASE}/Table%201?maxRecords=12&sort[0][field]=Published%20Date&sort[0][direction]=desc`,
           { headers: { Authorization: `Bearer ${TOKEN}` } }
         );
         const data = await res.json();
         if (data.error) throw new Error(data.error.message);
-        const records: AirtableRecord[] = data.records || [];
+        const records: AirtableRecord[] = (data.records || []).slice(0, 12);
         setAll(records);
         setFiltered(records);
       } catch (e: unknown) {
