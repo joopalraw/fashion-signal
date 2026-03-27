@@ -26,6 +26,35 @@ interface AirtableRecord {
   };
 }
 
+const ogCache = new Map<string, string>();
+
+function useOgImage(articleUrl: string | undefined, fallback: string): string {
+  const [src, setSrc] = useState<string>(fallback);
+
+  useEffect(() => {
+    if (!articleUrl) return;
+    if (ogCache.has(articleUrl)) {
+      setSrc(ogCache.get(articleUrl)!);
+      return;
+    }
+    let cancelled = false;
+    const encoded = encodeURIComponent(articleUrl);
+    fetch(`https://api.microlink.io/?url=${encoded}`)
+      .then((r) => r.json())
+      .then((data) => {
+        const imgUrl = data?.data?.image?.url;
+        if (!cancelled && imgUrl) {
+          ogCache.set(articleUrl, imgUrl);
+          setSrc(imgUrl);
+        }
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [articleUrl, fallback]);
+
+  return src;
+}
+
 function useReveal(ref: React.RefObject<Element | null>) {
   useEffect(() => {
     const el = ref.current;
@@ -127,7 +156,8 @@ function Editorial() {
 function NewsCard({ record }: { record: AirtableRecord }) {
   const f = record.fields;
   const cat = f.Category || "default";
-  const img = CAT_IMG[cat] || CAT_IMG.default;
+  const fallback = CAT_IMG[cat] || CAT_IMG.default;
+  const img = useOgImage(f.URL, fallback);
   const dateStr = f["Published Date"]
     ? new Date(f["Published Date"]).toLocaleDateString("ko-KR", { month: "short", day: "numeric" })
     : "";
@@ -142,7 +172,13 @@ function NewsCard({ record }: { record: AirtableRecord }) {
   return (
     <div className="card">
       <div className="card-img-wrap">
-        <img className="card-img" src={img} alt={cat} loading="lazy" />
+        <img
+          className="card-img"
+          src={img}
+          alt={cat}
+          loading="lazy"
+          onError={(e) => { (e.currentTarget as HTMLImageElement).src = fallback; }}
+        />
       </div>
       <div className="card-body">
         <div className="card-cat">{cat}</div>
