@@ -23,6 +23,7 @@ interface AirtableRecord {
     Category?: string;
     Summary?: string;
     "Published Date"?: string;
+    Image?: string;
   };
 }
 
@@ -157,7 +158,7 @@ function NewsCard({ record }: { record: AirtableRecord }) {
   const f = record.fields;
   const cat = f.Category || "default";
   const fallback = CAT_IMG[cat] || CAT_IMG.default;
-  const img = useOgImage(f.URL, fallback);
+  const img = useOgImage(f.Image ? undefined : f.URL, f.Image || fallback);
   const dateStr = f["Published Date"]
     ? new Date(f["Published Date"]).toLocaleDateString("ko-KR", { month: "short", day: "numeric" })
     : "";
