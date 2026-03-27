@@ -165,13 +165,15 @@ function NewsCard({ record }: { record: AirtableRecord }) {
   );
 }
 
+const PAGE_SIZE = 12;
+
 function Briefing() {
   const ref = useRef<HTMLElement>(null);
   useReveal(ref);
 
   const [all, setAll] = useState<AirtableRecord[]>([]);
-  const [filtered, setFiltered] = useState<AirtableRecord[]>([]);
   const [activeFilter, setActiveFilter] = useState("전체");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -187,9 +189,7 @@ function Briefing() {
         );
         const data = await res.json();
         if (data.error) throw new Error(data.error.message);
-        const records: AirtableRecord[] = data.records || [];
-        setAll(records);
-        setFiltered(records.slice(0, 12));
+        setAll(data.records || []);
       } catch (e: unknown) {
         setError(e instanceof Error ? e.message : "알 수 없는 오류");
       } finally {
@@ -199,13 +199,21 @@ function Briefing() {
     load();
   }, []);
 
+  const filteredAll =
+    activeFilter === "전체"
+      ? all
+      : all.filter((r) => r.fields.Category === activeFilter);
+
+  const visible = filteredAll.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredAll.length;
+
   function doFilter(cat: string) {
     setActiveFilter(cat);
-    if (cat === "전체") {
-      setFiltered(all.slice(0, 12));
-    } else {
-      setFiltered(all.filter((r) => r.fields.Category === cat).slice(0, 12));
-    }
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  function loadMore() {
+    setVisibleCount((prev) => prev + PAGE_SIZE);
   }
 
   return (
@@ -246,12 +254,20 @@ function Briefing() {
             데이터를 불러올 수 없습니다.<br />
             <small style={{ color: "var(--dust)", fontSize: 11, marginTop: 8, display: "block" }}>{error}</small>
           </div>
-        ) : filtered.length === 0 ? (
+        ) : visible.length === 0 ? (
           <div className="loading-wrap">수집된 기사가 없습니다.</div>
         ) : (
-          filtered.map((rec) => <NewsCard key={rec.id} record={rec} />)
+          visible.map((rec) => <NewsCard key={rec.id} record={rec} />)
         )}
       </div>
+
+      {!loading && !error && hasMore && (
+        <div style={{ textAlign: "center", padding: "40px 0 8px" }}>
+          <button className="load-more-btn" onClick={loadMore}>
+            더보기 &nbsp;{visibleCount} / {filteredAll.length}
+          </button>
+        </div>
+      )}
 
       {!loading && !error && all.length > 0 && (
         <div className="stats">

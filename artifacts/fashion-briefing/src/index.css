@@ -281,6 +281,15 @@ nav {
   padding: 3px 10px; border: 0.5px solid var(--gold); color: var(--gold);
 }
 
+/* ─── LOAD MORE ─── */
+.load-more-btn {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 12px 36px; border: 0.5px solid var(--ink);
+  color: var(--ink); background: transparent; cursor: pointer;
+  font-family: var(--sans); transition: all .2s;
+}
+.load-more-btn:hover { background: var(--ink); color: var(--paper); }
+
 /* ─── CTA ─── */
 .cta {
   position: relative; overflow: hidden;
