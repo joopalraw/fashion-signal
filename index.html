@@ -5,380 +5,470 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FASHION SIGNAL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --ink: #111009;
-  --paper: #f4f1eb;
+  --ink: #0f0e0c;
+  --paper: #f2f0ea;
   --gold: #b8965a;
-  --gold-light: #d4b07a;
-  --dust: #8a8278;
-  --rule: rgba(184,150,90,0.2);
-  --card: #faf8f4;
+  --gold-lt: #d4b07a;
+  --dust: #7a7770;
+  --rule: rgba(0,0,0,0.1);
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Geist', system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 300; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ─── NAV ─────────────────────────────── */
+/* ─── NAV ─── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0 48px; height: 56px;
-  background: rgba(244,241,235,0.92);
-  backdrop-filter: blur(16px);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 52px; display: flex; justify-content: space-between; align-items: center;
+  padding: 0 40px;
+  background: rgba(242,240,234,0.9); backdrop-filter: blur(20px);
   border-bottom: 0.5px solid var(--rule);
 }
 .nav-logo {
-  font-family: var(--serif);
-  font-size: 15px; font-weight: 400; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--ink);
-  text-decoration: none;
+  font-family: var(--serif); font-size: 14px; font-weight: 400;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
 }
-.nav-links { display: flex; gap: 36px; align-items: center; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
 .nav-links a {
-  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--dust); text-decoration: none; transition: color .2s;
 }
 .nav-links a:hover { color: var(--ink); }
-.nav-cta {
+.nav-sub {
   font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 7px 18px; border: 0.5px solid var(--gold);
-  color: var(--gold) !important; transition: all .2s !important;
+  padding: 6px 16px; border: 0.5px solid var(--ink);
+  color: var(--ink) !important; transition: all .2s !important;
 }
-.nav-cta:hover { background: var(--gold) !important; color: var(--paper) !important; }
+.nav-sub:hover { background: var(--ink) !important; color: var(--paper) !important; }
 
-/* ─── HERO ────────────────────────────── */
+/* ─── HERO ─── */
 .hero {
-  min-height: 100svh;
-  display: grid; grid-template-rows: 1fr auto;
-  padding: 56px 0 0;
-  position: relative; overflow: hidden;
-}
-.hero-inner {
+  height: 100svh; position: relative;
   display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 80px 48px 64px;
+  overflow: hidden;
+}
+.hero-img {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80') center/cover no-repeat;
+}
+.hero-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,9,8,0.85) 0%, rgba(10,9,8,0.3) 50%, rgba(10,9,8,0.1) 100%);
+}
+.hero-body {
+  position: relative; z-index: 2;
+  padding: 0 40px 56px;
 }
 .hero-eyebrow {
-  display: flex; align-items: center; gap: 14px;
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 28px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold-lt); margin-bottom: 20px;
 }
-.hero-eyebrow::before {
-  content: ''; width: 32px; height: 0.5px; background: var(--gold);
-}
+.hero-eyebrow::before { content: ''; width: 28px; height: 0.5px; background: var(--gold); }
 .hero-title {
   font-family: var(--serif);
-  font-size: clamp(64px, 9vw, 128px);
-  font-weight: 300; line-height: 0.95;
+  font-size: clamp(60px, 10vw, 140px);
+  font-weight: 300; line-height: 0.92;
   letter-spacing: -0.02em;
-  margin-bottom: 36px;
-  max-width: 900px;
+  color: #fff; margin-bottom: 28px;
 }
-.hero-title em { font-style: italic; color: var(--gold); }
-.hero-sub {
-  font-size: 14px; color: var(--dust); line-height: 1.8;
-  max-width: 440px; margin-bottom: 48px;
+.hero-title em { font-style: italic; color: var(--gold-lt); }
+.hero-desc {
+  font-size: 13px; color: rgba(255,255,255,0.6);
+  line-height: 1.8; max-width: 400px; margin-bottom: 40px;
 }
 .hero-cta {
   display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--ink); text-decoration: none;
-  border-bottom: 0.5px solid var(--ink); padding-bottom: 4px;
-  transition: color .2s, border-color .2s;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #fff; text-decoration: none;
+  border-bottom: 0.5px solid rgba(255,255,255,0.4);
+  padding-bottom: 4px; transition: all .2s;
 }
-.hero-cta:hover { color: var(--gold); border-color: var(--gold); }
-.hero-cta::after { content: '→'; font-size: 14px; }
+.hero-cta:hover { color: var(--gold-lt); border-color: var(--gold); }
+.hero-cta::after { content: '→'; letter-spacing: 0; }
 
-/* Ticker */
-.ticker-wrap {
-  border-top: 0.5px solid var(--rule);
-  overflow: hidden; white-space: nowrap;
-  padding: 13px 0; background: var(--paper);
+/* Scroll cue */
+.scroll-cue {
+  position: absolute; bottom: 28px; right: 40px; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
 }
-.ticker-track {
-  display: inline-block;
-  animation: scroll 40s linear infinite;
-  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--dust);
+.scroll-line {
+  width: 0.5px; height: 40px; background: rgba(255,255,255,0.2);
+  position: relative; overflow: hidden;
 }
-@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.scroll-line::after {
+  content: ''; position: absolute; top: -100%; left: 0;
+  width: 100%; height: 100%; background: var(--gold);
+  animation: drip 2s ease-in-out infinite;
+}
+@keyframes drip { to { top: 100%; } }
 
-/* Decorative rule */
-.section-rule {
-  display: flex; align-items: center; gap: 16px;
+/* ─── TICKER ─── */
+.ticker {
+  border-top: 0.5px solid var(--rule); border-bottom: 0.5px solid var(--rule);
+  overflow: hidden; white-space: nowrap; padding: 11px 0;
+  background: var(--paper);
+}
+.ticker-inner {
+  display: inline-block; animation: tick 50s linear infinite;
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dust);
+}
+@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─── EDITORIAL GRID (2 col image feature) ─── */
+.editorial {
+  display: grid; grid-template-columns: 1fr 1fr;
+  height: 70vh; border-bottom: 0.5px solid var(--rule);
+}
+.ed-panel {
+  position: relative; overflow: hidden; cursor: pointer;
+}
+.ed-panel:first-child { border-right: 0.5px solid var(--rule); }
+.ed-panel img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .8s cubic-bezier(.25,.46,.45,.94);
+}
+.ed-panel:hover img { transform: scale(1.04); }
+.ed-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,9,8,0.7) 0%, transparent 60%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 36px;
+}
+.ed-label {
   font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 48px;
+  color: var(--gold-lt); margin-bottom: 10px;
 }
-.section-rule::before, .section-rule::after {
-  content: ''; flex: 1; height: 0.5px; background: var(--rule);
+.ed-title {
+  font-family: var(--serif); font-size: clamp(28px, 3.5vw, 52px);
+  font-weight: 300; color: #fff; line-height: 1.05; margin-bottom: 16px;
 }
+.ed-title em { font-style: italic; }
+.ed-link {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); text-decoration: none;
+  border-bottom: 0.5px solid rgba(255,255,255,0.3);
+  padding-bottom: 2px; display: inline-block;
+  transition: all .2s;
+}
+.ed-link:hover { color: #fff; border-color: #fff; }
 
-/* ─── BRIEFING ────────────────────────── */
-.briefing { padding: 96px 48px; }
+/* ─── BRIEFING ─── */
+.briefing { padding: 80px 40px; }
 
-.meta-row {
+.section-head {
   display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 48px; padding-bottom: 24px;
+  margin-bottom: 40px; padding-bottom: 20px;
   border-bottom: 0.5px solid var(--rule);
   flex-wrap: wrap; gap: 16px;
 }
-.meta-date {
-  font-family: var(--serif);
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 300; line-height: 1; color: var(--ink);
+.section-eyebrow {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 10px;
 }
-.meta-right { text-align: right; }
-.meta-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
-.meta-sub { font-size: 12px; color: var(--dust); margin-top: 4px; }
+.section-title {
+  font-family: var(--serif); font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300; line-height: 1;
+}
+.section-meta { text-align: right; }
+.section-date {
+  font-family: var(--serif); font-size: 32px; font-weight: 300;
+  color: var(--dust); line-height: 1;
+}
+.section-sub { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
 
 /* Filters */
-.filters { display: flex; gap: 6px; margin-bottom: 36px; flex-wrap: wrap; }
-.filter-pill {
-  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+.filters { display: flex; gap: 4px; margin-bottom: 32px; flex-wrap: wrap; }
+.fpill {
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
   padding: 5px 14px; border: 0.5px solid var(--rule);
   color: var(--dust); background: transparent; cursor: pointer;
-  border-radius: 0; transition: all .15s; font-family: var(--sans);
+  font-family: var(--sans); transition: all .15s;
 }
-.filter-pill:hover { border-color: var(--gold); color: var(--gold); }
-.filter-pill.on { border-color: var(--ink); color: var(--ink); background: var(--ink); color: var(--paper); }
+.fpill:hover { border-color: var(--ink); color: var(--ink); }
+.fpill.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
-/* Cards */
+/* Cards grid */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border: 0.5px solid var(--rule);
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 0.5px solid var(--rule);
+  border-left: 0.5px solid var(--rule);
 }
 .card {
-  padding: 32px 28px; border-right: 0.5px solid var(--rule);
+  border-right: 0.5px solid var(--rule);
   border-bottom: 0.5px solid var(--rule);
-  background: var(--card); transition: background .2s;
-  display: flex; flex-direction: column; gap: 0;
-  cursor: default; min-height: 280px;
+  background: #fff; transition: background .2s;
+  display: flex; flex-direction: column;
 }
-.card:hover { background: #fff; }
-.card:nth-child(3n) { border-right: none; }
+.card:hover { background: var(--paper); }
+.card-img {
+  width: 100%; aspect-ratio: 3/2; object-fit: cover;
+  display: block; transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+  overflow: hidden;
+}
+.card:hover .card-img { transform: scale(1.03); }
+.card-img-wrap { overflow: hidden; }
+.card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
 .card-cat {
   font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 14px;
+  color: var(--gold); margin-bottom: 10px;
 }
 .card-title {
   font-family: var(--serif); font-size: 20px;
   font-weight: 400; line-height: 1.25; color: var(--ink);
-  margin-bottom: 14px; flex: 1;
+  margin-bottom: 10px; flex: 1;
 }
-.card-body {
+.card-summary {
   font-size: 12px; color: var(--dust); line-height: 1.7;
   margin-bottom: 20px;
 }
 .card-foot {
   display: flex; justify-content: space-between; align-items: center;
-  padding-top: 16px; border-top: 0.5px solid var(--rule);
+  padding-top: 14px; border-top: 0.5px solid var(--rule);
 }
-.card-source { font-size: 10px; color: var(--dust); letter-spacing: 0.06em; }
+.card-src { font-size: 10px; color: var(--dust); }
 .card-link {
-  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--gold); text-decoration: none; transition: opacity .2s;
 }
-.card-link:hover { opacity: 0.7; }
+.card-link:hover { opacity: 0.6; }
 
 /* Loading */
-.loading {
-  grid-column: 1 / -1; padding: 80px; text-align: center;
-  color: var(--dust); font-size: 13px; letter-spacing: 0.06em;
+.loading-wrap {
+  grid-column: 1/-1; padding: 80px; text-align: center; color: var(--dust);
 }
-.loading-dots span {
-  display: inline-block; width: 5px; height: 5px;
+.dots span {
+  display: inline-block; width: 4px; height: 4px;
   background: var(--gold); border-radius: 50%; margin: 0 3px;
-  animation: blink 1.4s ease-in-out infinite;
+  animation: pulse 1.4s ease-in-out infinite;
 }
-.loading-dots span:nth-child(2) { animation-delay: .2s; }
-.loading-dots span:nth-child(3) { animation-delay: .4s; }
-@keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+.dots span:nth-child(2) { animation-delay: .2s; }
+.dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes pulse { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
 
 /* Stats */
 .stats {
   display: grid; grid-template-columns: repeat(4,1fr);
   border: 0.5px solid var(--rule); border-top: none;
-  background: var(--card); margin-bottom: 0;
 }
-.stat { padding: 24px 28px; border-right: 0.5px solid var(--rule); }
+.stat { padding: 28px 24px; border-right: 0.5px solid var(--rule); }
 .stat:last-child { border-right: none; }
 .stat-n {
-  font-family: var(--serif); font-size: 40px;
-  font-weight: 300; color: var(--gold); line-height: 1;
+  font-family: var(--serif); font-size: 48px;
+  font-weight: 300; color: var(--ink); line-height: 1;
 }
-.stat-l { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dust); margin-top: 6px; }
+.stat-l {
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--dust); margin-top: 6px;
+}
 
 /* Source bar */
-.source-bar {
+.src-bar {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 0; border-top: 0.5px solid var(--rule); margin-top: 32px;
+  padding: 14px 0; margin-top: 28px;
+  border-top: 0.5px solid var(--rule);
 }
-.source-bar span { font-size: 10px; letter-spacing: 0.08em; color: var(--dust); }
-.source-badge {
+.src-bar span { font-size: 10px; color: var(--dust); letter-spacing: 0.04em; }
+.src-badge {
   font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
   padding: 3px 10px; border: 0.5px solid var(--gold); color: var(--gold);
 }
 
-/* ─── CTA ─────────────────────────────── */
-.cta-section {
-  padding: 96px 48px; text-align: center;
-  border-top: 0.5px solid var(--rule);
-  background: var(--ink); color: var(--paper);
+/* ─── CTA ─── */
+.cta {
+  position: relative; overflow: hidden;
+  min-height: 60vh; display: flex; align-items: center; justify-content: center;
 }
+.cta-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1800&q=80') center/cover no-repeat;
+}
+.cta-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(10,9,8,0.72);
+}
+.cta-body { position: relative; z-index: 2; text-align: center; padding: 80px 40px; }
 .cta-title {
   font-family: var(--serif);
-  font-size: clamp(36px, 5vw, 72px);
-  font-weight: 300; line-height: 1.05;
-  margin-bottom: 20px;
+  font-size: clamp(36px, 6vw, 80px);
+  font-weight: 300; color: #fff; line-height: 1.05; margin-bottom: 16px;
 }
-.cta-title em { font-style: italic; color: var(--gold-light); }
-.cta-sub { font-size: 13px; color: rgba(244,241,235,0.5); margin-bottom: 40px; letter-spacing: 0.04em; }
-.cta-form { display: flex; max-width: 400px; margin: 0 auto 16px; }
+.cta-title em { font-style: italic; color: var(--gold-lt); }
+.cta-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 40px; letter-spacing: 0.04em; }
+.cta-form { display: flex; max-width: 380px; margin: 0 auto 16px; }
 .cta-input {
-  flex: 1; padding: 13px 18px; background: rgba(255,255,255,0.06);
-  border: 0.5px solid rgba(244,241,235,0.2); border-right: none;
-  color: var(--paper); font-size: 13px; font-family: var(--sans);
-  outline: none; letter-spacing: 0.02em;
+  flex: 1; padding: 13px 18px;
+  background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.2);
+  border-right: none; color: #fff; font-size: 13px;
+  font-family: var(--sans); outline: none;
 }
-.cta-input::placeholder { color: rgba(244,241,235,0.3); }
+.cta-input::placeholder { color: rgba(255,255,255,0.3); }
 .cta-btn {
   padding: 13px 24px; background: var(--gold); border: none;
-  color: var(--ink); font-size: 11px; letter-spacing: 0.1em;
-  text-transform: uppercase; font-family: var(--sans);
-  cursor: pointer; font-weight: 500; transition: opacity .2s;
+  color: var(--ink); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--sans); font-weight: 500; cursor: pointer; transition: opacity .2s;
 }
 .cta-btn:hover { opacity: 0.85; }
-.cta-note { font-size: 10px; color: rgba(244,241,235,0.3); letter-spacing: 0.06em; }
+.cta-note { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; }
 
-/* ─── FOOTER ──────────────────────────── */
+/* ─── FOOTER ─── */
 footer {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 24px 48px; border-top: 0.5px solid rgba(244,241,235,0.1);
-  background: var(--ink); flex-wrap: wrap; gap: 12px;
+  background: var(--ink); color: rgba(242,240,234,0.5);
+  padding: 40px; display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+  border-top: 0.5px solid rgba(255,255,255,0.06);
 }
 .footer-logo {
-  font-family: var(--serif); font-size: 14px; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--gold);
+  font-family: var(--serif); font-size: 14px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold-lt);
 }
-footer p { font-size: 10px; letter-spacing: 0.06em; color: rgba(244,241,235,0.3); }
+footer p { font-size: 10px; letter-spacing: 0.06em; }
 
-/* ─── RESPONSIVE ──────────────────────── */
+/* ─── RESPONSIVE ─── */
 @media (max-width: 960px) {
-  nav { padding: 0 24px; }
-  .hero-inner { padding: 60px 24px 48px; }
-  .briefing { padding: 64px 24px; }
+  nav { padding: 0 20px; }
+  .hero-body { padding: 0 20px 48px; }
+  .editorial { grid-template-columns: 1fr; height: auto; }
+  .ed-panel { height: 50vw; min-height: 280px; }
+  .ed-panel:first-child { border-right: none; border-bottom: 0.5px solid var(--rule); }
+  .briefing { padding: 56px 20px; }
   .grid { grid-template-columns: repeat(2,1fr); }
-  .card:nth-child(3n) { border-right: 0.5px solid var(--rule); }
-  .card:nth-child(2n) { border-right: none; }
   .stats { grid-template-columns: repeat(2,1fr); }
   .stat:nth-child(2) { border-right: none; }
   .stat:nth-child(3) { border-top: 0.5px solid var(--rule); }
-  .cta-section { padding: 64px 24px; }
-  footer { padding: 20px 24px; }
+  footer { padding: 28px 20px; }
 }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }
-  .card { border-right: none; }
   .stats { grid-template-columns: repeat(2,1fr); }
 }
 
-/* ─── FADE IN ─────────────────────────── */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+/* ─── REVEAL ─── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">Fashion Signal</a>
   <div class="nav-links">
     <a href="#briefing">브리핑</a>
-    <a href="#subscribe" class="nav-cta">구독</a>
+    <a href="#subscribe" class="nav-sub">구독</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">AI 패션 트렌드 브리핑</div>
+  <div class="hero-img"></div>
+  <div class="hero-body">
+    <div class="hero-eyebrow">AI 패션 트렌드 브리핑 · 2026 S/S</div>
     <h1 class="hero-title">패션의<br><em>신호</em>를<br>먼저 읽는다</h1>
-    <p class="hero-sub">글로벌 런웨이·국내 패션 미디어·소재 트렌드를 AI가 매주 자동 수집·분석해 바이어와 팀에게 핵심만 전달합니다.</p>
+    <p class="hero-desc">글로벌 런웨이·국내 패션 미디어·소재 트렌드를 AI가 매주 자동 수집·분석해 바이어와 팀에게 핵심만 전달합니다.</p>
     <a href="#briefing" class="hero-cta">이번 주 브리핑 보기</a>
   </div>
-  <div class="ticker-wrap">
-    <div class="ticker-track">
-      2026 S/S &emsp;·&emsp; 컬러 해방 &emsp;·&emsp; 저지 소재 &emsp;·&emsp; 볼륨 실루엣 &emsp;·&emsp; 디자이너 빅뱅 &emsp;·&emsp; Transformative Teal &emsp;·&emsp; 화이트 진 &emsp;·&emsp; 프린지 스커트 &emsp;·&emsp; Loewe &emsp;·&emsp; Chanel &emsp;·&emsp; Dior &emsp;·&emsp; Balenciaga &emsp;·&emsp; Première Vision &emsp;·&emsp;
-      2026 S/S &emsp;·&emsp; 컬러 해방 &emsp;·&emsp; 저지 소재 &emsp;·&emsp; 볼륨 실루엣 &emsp;·&emsp; 디자이너 빅뱅 &emsp;·&emsp; Transformative Teal &emsp;·&emsp; 화이트 진 &emsp;·&emsp; 프린지 스커트 &emsp;·&emsp; Loewe &emsp;·&emsp; Chanel &emsp;·&emsp; Dior &emsp;·&emsp; Balenciaga &emsp;·&emsp; Première Vision &emsp;·&emsp;
-    </div>
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    scroll
   </div>
 </section>
 
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    2026 S/S &emsp;·&emsp; 컬러 해방 &emsp;·&emsp; 볼륨 실루엣 &emsp;·&emsp; 저지 소재 &emsp;·&emsp; 디자이너 빅뱅 &emsp;·&emsp; Transformative Teal &emsp;·&emsp; 화이트 진 &emsp;·&emsp; 프린지 스커트 &emsp;·&emsp; Loewe &emsp;·&emsp; Chanel &emsp;·&emsp; Dior &emsp;·&emsp; Balenciaga &emsp;·&emsp; Première Vision &emsp;·&emsp; 데님 트렌드 &emsp;·&emsp;
+    2026 S/S &emsp;·&emsp; 컬러 해방 &emsp;·&emsp; 볼륨 실루엣 &emsp;·&emsp; 저지 소재 &emsp;·&emsp; 디자이너 빅뱅 &emsp;·&emsp; Transformative Teal &emsp;·&emsp; 화이트 진 &emsp;·&emsp; 프린지 스커트 &emsp;·&emsp; Loewe &emsp;·&emsp; Chanel &emsp;·&emsp; Dior &emsp;·&emsp; Balenciaga &emsp;·&emsp; Première Vision &emsp;·&emsp; 데님 트렌드 &emsp;·&emsp;
+  </div>
+</div>
+
+<!-- EDITORIAL 2-COL -->
+<div class="editorial reveal">
+  <div class="ed-panel">
+    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80" alt="글로벌 트렌드" loading="lazy">
+    <div class="ed-overlay">
+      <div class="ed-label">글로벌 트렌드</div>
+      <h2 class="ed-title">2026 S/S<br><em>런웨이 분석</em></h2>
+      <a href="#briefing" class="ed-link">브리핑 보기 →</a>
+    </div>
+  </div>
+  <div class="ed-panel">
+    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80" alt="소재 트렌드" loading="lazy">
+    <div class="ed-overlay">
+      <div class="ed-label">소재 · 원단</div>
+      <h2 class="ed-title">시즌<br><em>원단 트렌드</em></h2>
+      <a href="#briefing" class="ed-link">브리핑 보기 →</a>
+    </div>
+  </div>
+</div>
+
 <!-- BRIEFING -->
 <section class="briefing reveal" id="briefing">
-  <div class="section-rule">최신 브리핑</div>
-
-  <div class="meta-row">
-    <div class="meta-date" id="js-date">2026. 03</div>
-    <div class="meta-right">
-      <div class="meta-label">AI 자동 수집</div>
-      <div class="meta-sub">매주 자동 업데이트</div>
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">최신 브리핑</div>
+      <h2 class="section-title">이번 주<br>트렌드 신호</h2>
+    </div>
+    <div class="section-meta">
+      <div class="section-date" id="js-date">2026. 03</div>
+      <div class="section-sub">매주 자동 업데이트</div>
     </div>
   </div>
 
   <div class="filters">
-    <button class="filter-pill on" onclick="filter('all',this)">전체</button>
-    <button class="filter-pill" onclick="filter('글로벌트렌드',this)">글로벌트렌드</button>
-    <button class="filter-pill" onclick="filter('국내뉴스',this)">국내뉴스</button>
-    <button class="filter-pill" onclick="filter('소재원단',this)">소재원단</button>
-    <button class="filter-pill" onclick="filter('SNS바이럴',this)">SNS바이럴</button>
-    <button class="filter-pill" onclick="filter('데님트렌드',this)">데님트렌드</button>
+    <button class="fpill on" onclick="doFilter('all',this)">전체</button>
+    <button class="fpill" onclick="doFilter('글로벌트렌드',this)">글로벌트렌드</button>
+    <button class="fpill" onclick="doFilter('국내뉴스',this)">국내뉴스</button>
+    <button class="fpill" onclick="doFilter('소재원단',this)">소재원단</button>
+    <button class="fpill" onclick="doFilter('SNS바이럴',this)">SNS바이럴</button>
+    <button class="fpill" onclick="doFilter('데님트렌드',this)">데님트렌드</button>
   </div>
 
   <div class="grid" id="grid">
-    <div class="loading">
-      <div class="loading-dots" style="margin-bottom:16px;"><span></span><span></span><span></span></div>
-      최신 트렌드를 불러오는 중입니다
+    <div class="loading-wrap">
+      <div class="dots" style="margin-bottom:14px;"><span></span><span></span><span></span></div>
+      <p style="font-size:12px;letter-spacing:0.06em;">최신 트렌드를 불러오는 중입니다</p>
     </div>
   </div>
 
   <div class="stats" id="stats" style="display:none;">
-    <div class="stat"><div class="stat-n" id="sn-total">—</div><div class="stat-l">수집 기사</div></div>
+    <div class="stat"><div class="stat-n" id="sn">—</div><div class="stat-l">수집 기사</div></div>
     <div class="stat"><div class="stat-n">5</div><div class="stat-l">수집 소스</div></div>
     <div class="stat"><div class="stat-n">5</div><div class="stat-l">카테고리</div></div>
     <div class="stat"><div class="stat-n">0분</div><div class="stat-l">수동 작업</div></div>
   </div>
 
-  <div class="source-bar">
+  <div class="src-bar">
     <span>Vogue Korea · W Korea · Harper's Bazaar · 패션비즈 · 어패럴뉴스</span>
-    <span class="source-badge">AI 자동 생성</span>
+    <span class="src-badge">AI 자동 생성</span>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section reveal" id="subscribe">
-  <h2 class="cta-title">매주 월요일,<br><em>트렌드를 먼저</em> 받아보세요</h2>
-  <p class="cta-sub">팀·바이어 대상 전용 브리핑 구독 신청</p>
-  <div class="cta-form">
-    <input class="cta-input" type="email" placeholder="이메일 주소" id="email">
-    <button class="cta-btn" onclick="sub()">구독</button>
+<section class="cta reveal" id="subscribe">
+  <div class="cta-bg"></div>
+  <div class="cta-body">
+    <h2 class="cta-title">매주 월요일,<br><em>트렌드를 먼저</em><br>받아보세요</h2>
+    <p class="cta-sub">팀·바이어 대상 전용 브리핑 구독 신청</p>
+    <div class="cta-form">
+      <input class="cta-input" type="email" placeholder="이메일 주소" id="em">
+      <button class="cta-btn" onclick="sub()">구독</button>
+    </div>
+    <p class="cta-note">스팸 없음 &nbsp;·&nbsp; 언제든 해지 가능 &nbsp;·&nbsp; 매주 월요일</p>
   </div>
-  <p class="cta-note">스팸 없음 &nbsp;·&nbsp; 언제든 해지 가능 &nbsp;·&nbsp; 매주 월요일</p>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">Fashion Signal</div>
   <p>© 2026 · AI 자동 패션 트렌드 브리핑</p>
@@ -387,74 +477,90 @@ footer p { font-size: 10px; letter-spacing: 0.06em; color: rgba(244,241,235,0.3)
 <script>
 const TOKEN = 'patPrnrfTgSDs7A1C.43f72cce92199af458c05b188667a7f98c5e98240ef17133c4398b5a4b201235';
 const BASE  = 'appT6B0N71oCjNVXf';
-const TABLE = 'Table%201';
+
+/* 카테고리별 Unsplash 이미지 */
+const CAT_IMG = {
+  '글로벌트렌드': 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=70',
+  '국내뉴스':     'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=70',
+  '소재원단':     'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=70',
+  'SNS바이럴':    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=70',
+  '데님트렌드':   'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=70',
+  'default':      'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=70',
+};
 
 let all = [];
 
 async function load() {
   try {
     const r = await fetch(
-      `https://api.airtable.com/v0/${BASE}/${TABLE}?maxRecords=30&sort[0][field]=Published%20Date&sort[0][direction]=desc`,
+      `https://api.airtable.com/v0/${BASE}/Table%201?maxRecords=30&sort[0][field]=Published%20Date&sort[0][direction]=desc`,
       { headers: { Authorization: `Bearer ${TOKEN}` } }
     );
     const d = await r.json();
+    if (d.error) throw new Error(d.error.message);
     all = d.records || [];
     render(all);
-    document.getElementById('sn-total').textContent = all.length;
+    document.getElementById('sn').textContent = all.length;
     document.getElementById('stats').style.display = 'grid';
-  } catch {
+  } catch(e) {
     document.getElementById('grid').innerHTML =
-      '<div class="loading" style="color:var(--gold);">데이터를 불러올 수 없습니다. 잠시 후 다시 시도해주세요.</div>';
+      `<div class="loading-wrap" style="color:var(--gold);">데이터를 불러올 수 없습니다.<br><small style="color:var(--dust);font-size:11px;margin-top:8px;display:block;">${e.message}</small></div>`;
   }
 }
 
 function render(recs) {
-  const g = document.getElementById('grid');
   if (!recs.length) {
-    g.innerHTML = '<div class="loading">수집된 기사가 없습니다.</div>';
+    document.getElementById('grid').innerHTML = '<div class="loading-wrap">수집된 기사가 없습니다.</div>';
     return;
   }
-  g.innerHTML = recs.map(r => {
+  document.getElementById('grid').innerHTML = recs.map(r => {
     const f = r.fields;
+    const cat = f['Category'] || 'default';
+    const img = CAT_IMG[cat] || CAT_IMG['default'];
     const d = f['Published Date']
       ? new Date(f['Published Date']).toLocaleDateString('ko-KR',{month:'short',day:'numeric'})
       : '';
-    const body = f['Summary']
-      ? f['Summary'].replace(/요약:/,'').replace(/카테고리:.*/s,'').trim().substring(0,140) + '…'
-      : '요약 준비 중';
+    const raw = f['Summary'] || '';
+    const body = raw.replace(/^요약[：:]?\s*/,'').replace(/카테고리[：:]?.*/s,'').trim().substring(0,120) + (raw.length > 120 ? '…' : '');
+
     return `
     <div class="card">
-      <div class="card-cat">${f['Category'] || '미분류'}</div>
-      <div class="card-title">${f['Title'] || '제목 없음'}</div>
-      <p class="card-body">${body}</p>
-      <div class="card-foot">
-        <span class="card-source">${f['Source'] || ''} · ${d}</span>
-        ${f['URL'] ? `<a href="${f['URL']}" target="_blank" rel="noopener" class="card-link">원문 →</a>` : ''}
+      <div class="card-img-wrap">
+        <img class="card-img" src="${img}" alt="${cat}" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${cat}</div>
+        <div class="card-title">${f['Title'] || '제목 없음'}</div>
+        <p class="card-summary">${body || '요약 준비 중'}</p>
+        <div class="card-foot">
+          <span class="card-src">${f['Source'] || ''} · ${d}</span>
+          ${f['URL'] ? `<a href="${f['URL']}" target="_blank" rel="noopener" class="card-link">원문 →</a>` : ''}
+        </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function filter(cat, btn) {
-  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('on'));
+function doFilter(cat, btn) {
+  document.querySelectorAll('.fpill').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
   render(cat === 'all' ? all : all.filter(r => r.fields['Category'] === cat));
 }
 
 function sub() {
-  const v = document.getElementById('email').value.trim();
-  if (v) alert(`${v}\n구독 신청이 완료됐습니다.\n매주 월요일 브리핑을 보내드릴게요.`);
+  const v = document.getElementById('em').value.trim();
+  if (v) alert(`${v}\n구독 신청이 완료됐습니다!\n매주 월요일 브리핑을 보내드릴게요.`);
 }
 
-// Date
+/* Date */
 const n = new Date();
 document.getElementById('js-date').textContent =
   `${n.getFullYear()}. ${String(n.getMonth()+1).padStart(2,'0')}`;
 
-// Scroll reveal
+/* Scroll reveal */
 const io = new IntersectionObserver(es => {
-  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }});
-}, { threshold: 0.08 });
+  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+}, { threshold: 0.06 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 load();
