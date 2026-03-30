@@ -353,7 +353,7 @@ function Subscribe() {
       <div className="cta-bg" />
       <div className="cta-body">
         <h2 className="cta-title">
-          매주 월요일,<br /><em>트렌드를 먼저</em><br />받아보세요
+          <em>트렌드를 먼저</em><br />받아보세요
         </h2>
         <p className="cta-sub">팀·바이어 대상 전용 브리핑 구독 신청</p>
         {done ? (
