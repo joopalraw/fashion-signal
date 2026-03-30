@@ -163,12 +163,12 @@ function NewsCard({ record }: { record: AirtableRecord }) {
     ? new Date(f["Published Date"]).toLocaleDateString("ko-KR", { month: "short", day: "numeric" })
     : "";
   const raw = f.Summary || "";
-  const body =
-    raw
-      .replace(/^요약[：:]?\s*/, "")
-      .replace(/카테고리[：:]?.*/s, "")
-      .trim()
-      .substring(0, 120) + (raw.length > 120 ? "…" : "");
+  const stripped = raw.replace(/<[^>]*>/g, "").replace(/&[a-zA-Z#0-9]+;/g, " ").replace(/\s+/g, " ");
+  const cleaned = stripped
+    .replace(/^요약[：:]?\s*/i, "")
+    .replace(/카테고리[：:].*/is, "")
+    .trim();
+  const body = cleaned.length > 120 ? cleaned.substring(0, 120) + "..." : cleaned;
 
   return (
     <div className="card">
@@ -236,10 +236,11 @@ function Briefing() {
     load();
   }, []);
 
+  const withTitle = all.filter((r) => r.fields.Title && r.fields.Title.trim() !== "");
   const filteredAll =
     activeFilter === "전체"
-      ? all
-      : all.filter((r) => r.fields.Category === activeFilter);
+      ? withTitle
+      : withTitle.filter((r) => r.fields.Category === activeFilter);
 
   const visible = filteredAll.slice(0, visibleCount);
   const hasMore = visibleCount < filteredAll.length;
