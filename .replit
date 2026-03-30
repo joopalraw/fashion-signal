@@ -20,6 +20,7 @@ runButton = "Project"
 [agent]
 stack = "PNPM_WORKSPACE"
 expertMode = true
+integrations = ["github:1.0.0"]
 
 [postMerge]
 path = "scripts/post-merge.sh"
@@ -30,3 +31,6 @@ timeoutMs = 20000
 [userenv.shared]
 VITE_AIRTABLE_TOKEN = "patPrnrfTgSDs7A1C.43f72cce92199af458c05b188667a7f98c5e98240ef17133c4398b5a4b201235"
 VITE_AIRTABLE_BASE = "appT6B0N71oCjNVXf"
+
+[nix]
+channel = "stable-25_05"
